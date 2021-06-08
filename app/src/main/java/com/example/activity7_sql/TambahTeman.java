@@ -49,7 +49,7 @@ public class TambahTeman extends AppCompatActivity {
         });
     }
 
-    private void SimpanData() {
+    public void SimpanData() {
         if (editNama.getText().toString().equals("") || editTelpon.getText().toString().equals("")){
             Toast.makeText(TambahTeman.this, "Semua harus diisi data", Toast.LENGTH_SHORT).show();
         }else {

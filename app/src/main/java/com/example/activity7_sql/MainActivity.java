@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -24,6 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -50,9 +53,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        fab.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, TambahTeman.class);
-            startActivity(intent);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TambahTeman.class);
+                startActivity(intent);
+            }
         });
     }
 
@@ -79,10 +85,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        }, error -> {
-            VolleyLog.d(TAG, "Error: " + error.getMessage());
-            error.printStackTrace();
-            Toast.makeText(MainActivity.this, "gagal", Toast.LENGTH_SHORT).show();
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                error.printStackTrace();
+                Toast.makeText(MainActivity.this, "gagal", Toast.LENGTH_SHORT).show();
+            }
         });
         requestQueue.add(jArr);
     }

@@ -6,7 +6,6 @@ public class Teman implements Serializable{
     String id, nama, telpon;
 
     public Teman(){
-
     }
 
     public Teman(String id, String nama, String telpon) {
